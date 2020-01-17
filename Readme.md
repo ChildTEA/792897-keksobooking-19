@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Ярослав Смирнов](https://up.htmlacademy.ru/javascript/19/user/792897).
-* Наставник: `Неизвестно`.
+* Наставник: [Магомед Кандаев](https://up.htmlacademy.ru/javascript/19/user/161600).
 
 ---
 
