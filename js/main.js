@@ -21,56 +21,43 @@ var getRandomArrayItem = function (array) {
   return array[randomIndex];
 };
 
+var shuffleArray = function (arr) {
+  var j;
+  var temp;
+  for (var i = arr.length - 1; i > 0; i--) {
+    j = Math.floor(Math.random() * (i + 1));
+    temp = arr[j];
+    arr[j] = arr[i];
+    arr[i] = temp;
+  }
+  return arr;
+};
+
 var randomlyCutArray = function (array) {
-  array.length = getRandomNumber(array.length);
+  var shuffledArray = shuffleArray(array.concat());
 
-  return array;
+  return shuffledArray.slice(getRandomNumber(shuffleArray.length));
 };
 
-var getRandomRentType = function () {
-  var RENT_TYPE = ['palace', 'flat', 'house', 'bungalo'];
-
-  return getRandomArrayItem(RENT_TYPE);
-};
-
-var getRandomCheckin = function () {
+var generateRandomOffers = function (quantity) {
+  var RENT_TYPES = ['palace', 'flat', 'house', 'bungalo'];
   var CHECKIN_TIMES = ['12:00', '13:00', '14:00'];
-
-  return getRandomArrayItem(CHECKIN_TIMES);
-};
-
-var getRandomCheckout = function () {
   var CHECKOUT_TIMES = ['12:00', '13:00', '14:00'];
-
-  return getRandomArrayItem(CHECKOUT_TIMES);
-};
-
-var getRandomFeatures = function () {
   var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-
-  return randomlyCutArray(FEATURES);
-};
-
-var getRandomPhotos = function () {
   var PHOTOS_URL = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
-  return randomlyCutArray(PHOTOS_URL);
-};
-
-var genereteRandomOffers = function (quantity) {
-  var RandomOffers = [];
+  var randomOffers = [];
 
   for (var i = 1; i <= quantity; i++) {
     var avatarIndex = (i < 10) ? '0' + i : i;
-    var type = getRandomRentType();
-    var features = getRandomFeatures();
+    var type = getRandomArrayItem(RENT_TYPES);
+    var features = randomlyCutArray(FEATURES);
     var title = 'Сдаю апартаменты';
     var rooms = 0;
     var price = 0;
     var description = 'Что-то пошло не так...';
     var positionX = getRandomNumber(offersMap.clientWidth);
     var positionY = getRandomInteger(130, 630);
-
 
     if (type === 'palace') {
       title = 'Сдаю дворец!';
@@ -109,11 +96,11 @@ var genereteRandomOffers = function (quantity) {
         'type': type,
         'rooms': rooms,
         'guests': rooms * getRandomInteger(2, 4),
-        'checkin': getRandomCheckin(),
-        'checkout': getRandomCheckout(),
-        'features': getRandomFeatures(),
+        'checkin': getRandomArrayItem(CHECKIN_TIMES),
+        'checkout': getRandomArrayItem(CHECKOUT_TIMES),
+        'features': features,
         'description': description,
-        'photos': getRandomPhotos()
+        'photos': randomlyCutArray(PHOTOS_URL)
       },
       'location': {
         'x': positionX,
@@ -121,10 +108,10 @@ var genereteRandomOffers = function (quantity) {
       },
     };
 
-    RandomOffers.push(randomOffer);
+    randomOffers.push(randomOffer);
   }
 
-  return RandomOffers;
+  return randomOffers;
 };
 
 var renderPin = function (pinData) {
@@ -151,6 +138,6 @@ var renderPins = function (pins) {
 };
 
 
-var offersToShow = genereteRandomOffers(8);
-renderPins(offersToShow);
+var offersData = generateRandomOffers(8);
+renderPins(offersData);
 activateMap();
