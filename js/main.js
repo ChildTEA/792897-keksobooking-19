@@ -37,7 +37,7 @@ var shuffleArray = function (array) {
 var randomlyCutArray = function (array) {
   var shuffledItems = shuffleArray(array);
 
-  return shuffledItems.slice(getRandomNumber(shuffleArray.length));
+  return shuffledItems.slice(getRandomNumber(shuffledItems.length));
 };
 
 var generateRandomOffers = function (quantity) {
@@ -139,6 +139,6 @@ var renderPins = function (pins) {
 };
 
 
-var offersData = generateRandomOffers(8);
-renderPins(offersData);
+var rentOffers = generateRandomOffers(8);
+renderPins(rentOffers);
 activateMap();
