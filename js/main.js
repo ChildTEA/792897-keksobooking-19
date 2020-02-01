@@ -21,22 +21,23 @@ var getRandomArrayItem = function (array) {
   return array[randomIndex];
 };
 
-var shuffleArray = function (arr) {
+var shuffleArray = function (array) {
+  var clonedItems = array.concat();
   var j;
   var temp;
-  for (var i = arr.length - 1; i > 0; i--) {
+  for (var i = clonedItems.length - 1; i > 0; i--) {
     j = Math.floor(Math.random() * (i + 1));
-    temp = arr[j];
-    arr[j] = arr[i];
-    arr[i] = temp;
+    temp = clonedItems[j];
+    clonedItems[j] = clonedItems[i];
+    clonedItems[i] = temp;
   }
-  return arr;
+  return clonedItems;
 };
 
 var randomlyCutArray = function (array) {
-  var shuffledArray = shuffleArray(array.concat());
+  var shuffledItems = shuffleArray(array);
 
-  return shuffledArray.slice(getRandomNumber(shuffleArray.length));
+  return shuffledItems.slice(getRandomNumber(shuffleArray.length));
 };
 
 var generateRandomOffers = function (quantity) {
@@ -75,7 +76,7 @@ var generateRandomOffers = function (quantity) {
       title = 'Сдаю дом';
       rooms = getRandomInteger(2, 6);
       price = 35 * rooms + features.length * 5;
-      description = 'Енот в придачу, бусплатно!';
+      description = 'Енот в придачу, бесплатно!';
     }
     if (type === 'bungalo') {
       title = 'Сдаю хату';
