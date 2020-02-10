@@ -1,18 +1,16 @@
 'use strict';
 
+// Constants:
+var ENTER_KEYCODE = 'Enter';
+var SPACE_KEYCODE = 'Space';
+
 var offersMap = document.querySelector('.map');
 var filterForm = document.querySelector('form.map__filters');
 var offerForm = document.querySelector('form.ad-form');
-var addresInput = document.querySelector('#address');
-var roomNubmerSelect = document.querySelector('#room_number');
+var addressInput = document.querySelector('#address');
+var roomNumberSelect = document.querySelector('#room_number');
 var roomCapacitySelect = document.querySelector('#capacity');
 var mapPin = document.querySelector('.map__pin--main');
-
-// Constants:
-var ENTER_KEYCODE = 'Enter';
-
-// flags:
-var isPinsRendered = false;
 
 var getRandomNumber = function (number) {
   return Math.floor(Math.random() * (number + 1));
@@ -52,33 +50,35 @@ var activateMap = function () {
   offersMap.classList.remove('map--faded');
   offerForm.classList.remove('ad-form--disabled');
 
-  if (!isPinsRendered) {
-    var rentOffers = generateRandomOffers(8);
-
-    renderPins(rentOffers);
-    isPinsRendered = true;
-  }
+  mapPin.removeEventListener('mousedown', onPinFirstClick);
+  mapPin.removeEventListener('keydown', onPinFirstEnterPress);
 };
 
-var setOfferAddres = function (offerPin, isActive) {
+var setInitialOfferAddress = function () {
   var MAP_PIN_WIDTH = mapPin.clientWidth;
   var MAP_PIN_HEIGHT = mapPin.clientHeight;
-  var PIN_EDGE_HEIGTH = 22;
-  var x = offerPin.offsetLeft + (MAP_PIN_WIDTH / 2);
-  var y = offerPin.offsetTop;
 
-  if (isActive) {
-    y += MAP_PIN_HEIGHT + PIN_EDGE_HEIGTH;
-  } else {
-    y += MAP_PIN_HEIGHT / 2;
-  }
+  var x = mapPin.offsetLeft + (MAP_PIN_WIDTH / 2);
+  var y = mapPin.offsetTop + MAP_PIN_HEIGHT / 2;
 
-  addresInput.value = Math.round(x) + ', ' + Math.round(y);
+  addressInput.value = Math.round(x) + ', ' + Math.round(y);
+};
+
+var setOfferAddress = function () {
+  var MAP_PIN_WIDTH = mapPin.clientWidth;
+  var MAP_PIN_HEIGHT = mapPin.clientHeight;
+  var PIN_EDGE_HEIGHT = 15;
+  var x = mapPin.offsetLeft + (MAP_PIN_WIDTH / 2);
+  var y = mapPin.offsetTop + MAP_PIN_HEIGHT + PIN_EDGE_HEIGHT;
+
+  addressInput.value = Math.round(x) + ', ' + Math.round(y);
 };
 
 var disableFormInputs = function (form) {
   var inputs = form.querySelectorAll('input');
   var selects = form.querySelectorAll('select');
+  var textareas = form.querySelectorAll('textarea');
+  var buttons = form.querySelectorAll('button');
 
   inputs.forEach(function (input) {
     input.setAttribute('disabled', 'disabled');
@@ -87,17 +87,35 @@ var disableFormInputs = function (form) {
   selects.forEach(function (select) {
     select.setAttribute('disabled', 'disabled');
   });
+
+  textareas.forEach(function (select) {
+    select.setAttribute('disabled', 'disabled');
+  });
+
+  buttons.forEach(function (select) {
+    select.setAttribute('disabled', 'disabled');
+  });
 };
 
 var enableFormInputs = function (form) {
   var inputs = form.querySelectorAll('input');
   var selects = form.querySelectorAll('select');
+  var textareas = form.querySelectorAll('textarea');
+  var buttons = form.querySelectorAll('button');
 
   inputs.forEach(function (input) {
     input.removeAttribute('disabled');
   });
 
   selects.forEach(function (select) {
+    select.removeAttribute('disabled');
+  });
+
+  textareas.forEach(function (select) {
+    select.removeAttribute('disabled');
+  });
+
+  buttons.forEach(function (select) {
     select.removeAttribute('disabled');
   });
 };
@@ -108,7 +126,7 @@ var validateCapacity = function () {
     option.disabled = true;
   });
 
-  switch (roomNubmerSelect.value) {
+  switch (roomNumberSelect.value) {
     case '1':
       roomCapacitySelect[0].disabled = false;
       break;
@@ -122,15 +140,12 @@ var validateCapacity = function () {
       roomCapacitySelect[2].disabled = false;
       break;
     case '100':
-      roomCapacitySelect[0].disabled = false;
-      roomCapacitySelect[1].disabled = false;
-      roomCapacitySelect[2].disabled = false;
       roomCapacitySelect[3].disabled = false;
       break;
   }
 };
 
-var checkRoomsCapasityValidity = function () {
+var checkRoomsCapacityValidity = function () {
   if (roomCapacitySelect[roomCapacitySelect.selectedIndex].disabled) {
     roomCapacitySelect.setCustomValidity('Неподходящее количество гостей');
   } else {
@@ -140,7 +155,7 @@ var checkRoomsCapasityValidity = function () {
 
 var offerFormValidation = function () {
   validateCapacity();
-  checkRoomsCapasityValidity();
+  checkRoomsCapacityValidity();
 };
 
 var generateRandomOffers = function (quantity) {
@@ -243,41 +258,52 @@ var renderPins = function (pins) {
   offersMap.appendChild(fragment);
 };
 
-mapPin.addEventListener('mousedown', function (evt) {
+
+var onPinFirstClick = function (evt) {
   if (evt.button === 0) {
+    var rentOffers = generateRandomOffers(8);
+    renderPins(rentOffers);
+
     activateMap();
     enableFormInputs(offerForm);
     enableFormInputs(filterForm);
-    setOfferAddres(mapPin, true);
+    setOfferAddress();
   }
-});
+};
 
-mapPin.addEventListener('keydown', function (evt) {
-  if (evt.code === ENTER_KEYCODE) {
+var onPinFirstEnterPress = function (evt) {
+  if (evt.code === ENTER_KEYCODE || evt.code === SPACE_KEYCODE) {
+    var rentOffers = generateRandomOffers(8);
+
     activateMap();
+    renderPins(rentOffers);
     enableFormInputs(offerForm);
     enableFormInputs(filterForm);
-    setOfferAddres(mapPin, true);
+    setOfferAddress();
   }
-});
+};
 
-roomNubmerSelect.addEventListener('input', function () {
+roomNumberSelect.addEventListener('change', function () {
   validateCapacity();
+  checkRoomsCapacityValidity();
 });
 
 roomCapacitySelect.addEventListener('change', function () {
-  checkRoomsCapasityValidity();
+  checkRoomsCapacityValidity();
 });
 
 offerForm.addEventListener('submit', function () {
-  checkRoomsCapasityValidity();
+  checkRoomsCapacityValidity();
 });
 
 var init = function () {
   disableFormInputs(offerForm);
   disableFormInputs(filterForm);
   offerFormValidation();
-  setOfferAddres(mapPin, false);
+  setInitialOfferAddress(mapPin);
+
+  mapPin.addEventListener('mousedown', onPinFirstClick);
+  mapPin.addEventListener('keydown', onPinFirstEnterPress);
 };
 
 init();
