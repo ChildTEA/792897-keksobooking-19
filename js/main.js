@@ -67,7 +67,7 @@ var setInitialOfferAddress = function () {
 var setOfferAddress = function () {
   var MAP_PIN_WIDTH = mapPin.clientWidth;
   var MAP_PIN_HEIGHT = mapPin.clientHeight;
-  var PIN_EDGE_HEIGHT = 15;
+  var PIN_EDGE_HEIGHT = 19;
   var x = mapPin.offsetLeft + (MAP_PIN_WIDTH / 2);
   var y = mapPin.offsetTop + MAP_PIN_HEIGHT + PIN_EDGE_HEIGHT;
 
@@ -300,7 +300,7 @@ var init = function () {
   disableFormInputs(offerForm);
   disableFormInputs(filterForm);
   offerFormValidation();
-  setInitialOfferAddress(mapPin);
+  setInitialOfferAddress();
 
   mapPin.addEventListener('mousedown', onPinFirstClick);
   mapPin.addEventListener('keydown', onPinFirstEnterPress);
