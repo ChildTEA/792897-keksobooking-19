@@ -32,7 +32,7 @@
     });
   };
 
-  var disableFilterForm = function () {
+  var disableMapFilter = function () {
     disableFormInputs(filterForm);
   };
 
@@ -67,7 +67,7 @@
     enableFormInputs(filterForm);
   };
 
-  var enableOfferForm = function () {
+  var enableOfferEditor = function () {
     offerForm.classList.remove('ad-form--disabled');
     enableFormInputs(offerForm);
   };
@@ -170,10 +170,10 @@
 
 
   window.form = {
-    disableFilterForm: disableFilterForm,
-    disableOfferForm: disableOfferForm,
-    enableFilterForm: enableFilterForm,
-    enableOfferForm: enableOfferForm,
+    disableMapFilter: disableMapFilter,
+    disableOfferEditor: disableOfferForm,
+    enableMapFilter: enableFilterForm,
+    enableOfferEditor: enableOfferEditor,
     setOfferAddress: setOfferAddress
   };
 })();

@@ -21,8 +21,8 @@
       window.data.renderPins(offersMap, rentOffers);
 
       activateMap();
-      window.form.enableOfferForm();
-      window.form.enableFilterForm();
+      window.form.enableOfferEditor();
+      window.form.enableMapFilter();
     }
   };
 
@@ -32,8 +32,8 @@
       window.data.renderPins(offersMap, rentOffers);
 
       activateMap();
-      window.form.enableOfferForm();
-      window.form.enableFilterForm();
+      window.form.enableOfferEditor();
+      window.form.enableMapFilter();
       window.form.setOfferAddress();
     }
   };
