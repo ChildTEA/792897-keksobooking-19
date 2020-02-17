@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var replace = function (block, handler, limitTop, limitRight, limitBottom, limitLeft) {
+  var replace = function (block, handler, limitBox, limits) {
     var onMouseDown = function (evt) {
 
       var startCoords = {
@@ -12,6 +12,9 @@
       var isDragged = false;
 
       var onMouseMove = function (moveEvt) {
+        var limitBoxOffsetX = limitBox.getBoundingClientRect().x;
+        var limitBoxOffsetY = limitBox.getBoundingClientRect().y;
+
         var shift = {
           x: startCoords.x - moveEvt.clientX,
           y: startCoords.y - moveEvt.clientY
@@ -22,15 +25,15 @@
           y: block.offsetTop - shift.y
         };
 
-        if (moveEvt.pageX > limitRight) {
-          newCoords.x = limitRight;
-        } else if (moveEvt.pageX < limitLeft) {
-          newCoords.x = limitLeft;
+        if (moveEvt.pageX > limits.right) {
+          newCoords.x = limits.right - limitBoxOffsetX;
+        } else if (moveEvt.pageX < limits.left) {
+          newCoords.x = limits.left - limitBoxOffsetX;
         }
-        if (moveEvt.pageY > limitBottom) {
-          newCoords.y = limitBottom;
-        } else if (moveEvt.pageY < limitTop) {
-          newCoords.y = limitTop;
+        if (moveEvt.pageY > limits.bottom) {
+          newCoords.y = limits.bottom - limitBoxOffsetY;
+        } else if (moveEvt.pageY < limits.top) {
+          newCoords.y = limits.top - limitBoxOffsetY;
         }
 
         if (shift.x !== 0 || shift.y !== 0) {
