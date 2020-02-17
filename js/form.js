@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var mapPin = document.querySelector('.map__pin--main');
+  var mainPin = document.querySelector('.map__pin--main');
 
   var filterForm = document.querySelector('form.map__filters');
   var offerForm = document.querySelector('form.ad-form');
@@ -73,21 +73,21 @@
   };
 
   var setInitialOfferAddress = function () {
-    var MAP_PIN_WIDTH = mapPin.clientWidth;
-    var MAP_PIN_HEIGHT = mapPin.clientHeight;
+    var MAP_PIN_WIDTH = mainPin.clientWidth;
+    var MAP_PIN_HEIGHT = mainPin.clientHeight;
 
-    var x = mapPin.offsetLeft + (MAP_PIN_WIDTH / 2);
-    var y = mapPin.offsetTop + MAP_PIN_HEIGHT / 2;
+    var x = mainPin.offsetLeft + (MAP_PIN_WIDTH / 2);
+    var y = mainPin.offsetTop + MAP_PIN_HEIGHT / 2;
 
     addressInput.value = Math.round(x) + ', ' + Math.round(y);
   };
 
   var setOfferAddress = function () {
-    var MAP_PIN_WIDTH = mapPin.clientWidth;
-    var MAP_PIN_HEIGHT = mapPin.clientHeight;
+    var MAP_PIN_WIDTH = mainPin.clientWidth;
+    var MAP_PIN_HEIGHT = mainPin.clientHeight;
     var PIN_EDGE_HEIGHT = 19;
-    var x = mapPin.offsetLeft + (MAP_PIN_WIDTH / 2);
-    var y = mapPin.offsetTop + MAP_PIN_HEIGHT + PIN_EDGE_HEIGHT;
+    var x = mainPin.offsetLeft + (MAP_PIN_WIDTH / 2);
+    var y = mainPin.offsetTop + MAP_PIN_HEIGHT + PIN_EDGE_HEIGHT;
 
     addressInput.value = Math.round(x) + ', ' + Math.round(y);
   };
@@ -157,16 +157,13 @@
     checkRoomsCapacityValidity();
   });
 
-  var init = function () {
-    disableFormInputs(offerForm);
-    disableFormInputs(filterForm);
-    offerFormValidation();
-    setInitialOfferAddress();
 
-    mapPin.addEventListener('mousedown', onPinMousedown);
-  };
+  disableFormInputs(offerForm);
+  disableFormInputs(filterForm);
+  offerFormValidation();
+  setInitialOfferAddress();
 
-  init();
+  mainPin.addEventListener('mousedown', onPinMousedown);
 
 
   window.form = {

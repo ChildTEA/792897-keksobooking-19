@@ -2,7 +2,7 @@
 
 (function () {
   var offersMap = document.querySelector('.map');
-  var mapPin = document.querySelector('.map__pin--main');
+  var mainPin = document.querySelector('.map__pin--main');
   var PINS_X_LIMIT = offersMap.clientWidth;
   var PINS_Y_MIN_LIMIT = 130;
   var PINS_Y_MAX_LIMIT = 360;
@@ -11,8 +11,8 @@
   var activateMap = function () {
     offersMap.classList.remove('map--faded');
 
-    mapPin.removeEventListener('mousedown', onPinFirstClick);
-    mapPin.removeEventListener('keydown', onPinFirstEnterPress);
+    mainPin.removeEventListener('mousedown', onPinFirstClick);
+    mainPin.removeEventListener('keydown', onPinFirstEnterPress);
   };
 
   var onPinFirstClick = function (evt) {
@@ -39,8 +39,8 @@
   };
 
   var init = function () {
-    mapPin.addEventListener('mousedown', onPinFirstClick);
-    mapPin.addEventListener('keydown', onPinFirstEnterPress);
+    mainPin.addEventListener('mousedown', onPinFirstClick);
+    mainPin.addEventListener('keydown', onPinFirstEnterPress);
   };
 
   init();
