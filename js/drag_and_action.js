@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var replace = function (block, handler) {
+  var replace = function (block, handler, limitTop, limitRight, limitBottom, limitLeft) {
     var onMouseDown = function (evt) {
 
       var startCoords = {
@@ -12,15 +12,33 @@
       var isDragged = false;
 
       var onMouseMove = function (moveEvt) {
-        isDragged = true;
-
         var shift = {
           x: startCoords.x - moveEvt.clientX,
           y: startCoords.y - moveEvt.clientY
         };
 
-        block.style.top = (block.offsetTop - shift.y) + 'px';
-        block.style.left = (block.offsetLeft - shift.x) + 'px';
+        var newCoords = {
+          x: block.offsetLeft - shift.x,
+          y: block.offsetTop - shift.y
+        };
+
+        if (moveEvt.pageX > limitRight) {
+          newCoords.x = limitRight;
+        } else if (moveEvt.pageX < limitLeft) {
+          newCoords.x = limitLeft;
+        }
+        if (moveEvt.pageY > limitBottom) {
+          newCoords.y = limitBottom;
+        } else if (moveEvt.pageY < limitTop) {
+          newCoords.y = limitTop;
+        }
+
+        if (shift.x !== 0 || shift.y !== 0) {
+          isDragged = true;
+        }
+
+        block.style.top = newCoords.y + 'px';
+        block.style.left = newCoords.x + 'px';
 
         startCoords = {
           x: moveEvt.clientX,
@@ -50,9 +68,9 @@
     handler.addEventListener('mousedown', onMouseDown);
   };
 
-  var reset = function (block) {
-    block.style.top = '';
-    block.style.left = '';
+  var reset = function (block, x, y) {
+    block.style.left = x ? (x + 'px') : '';
+    block.style.top = y ? (y + 'px') : '';
   };
 
 
