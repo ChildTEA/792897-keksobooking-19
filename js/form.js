@@ -84,10 +84,9 @@
 
   var setOfferAddress = function () {
     var MAP_PIN_WIDTH = mainPin.clientWidth;
-    var MAP_PIN_HEIGHT = mainPin.clientHeight;
-    var PIN_EDGE_HEIGHT = 19;
+    var MAP_PIN_HEIGHT = 84;
     var x = mainPin.offsetLeft + (MAP_PIN_WIDTH / 2);
-    var y = mainPin.offsetTop + MAP_PIN_HEIGHT + PIN_EDGE_HEIGHT;
+    var y = mainPin.offsetTop + MAP_PIN_HEIGHT;
 
     addressInput.value = Math.round(x) + ', ' + Math.round(y);
   };
