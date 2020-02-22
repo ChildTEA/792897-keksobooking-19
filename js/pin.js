@@ -6,8 +6,25 @@
   var offersMap = document.querySelector('.map');
   var MAIN_PIN_WIDTH = 65;
   var MAIN_PIN_HEIGHT = 84;
+  var MAIN_PIN_ACTIVE_Z_INDEX = '2';
   var MAIN_PIN_DRAG_LIMIT_TOP = 130;
   var MAIN_PIN_DRAG_LIMIT_BOTTOM = 630;
+
+  var onFirstMainPinMousedown = function (evt) {
+    if (evt.button === 0) {
+      mainPin.style.zIndex = MAIN_PIN_ACTIVE_Z_INDEX;
+      mainPin.removeEventListener('mousedown', onFirstMainPinMousedown);
+      mainPin.removeEventListener('keydown', onFirstMainPinEnterPress);
+    }
+  };
+
+  var onFirstMainPinEnterPress = function (evt) {
+    if (evt.code === window.util.ENTER_KEYCODE) {
+      mainPin.style.zIndex = MAIN_PIN_ACTIVE_Z_INDEX;
+      mainPin.removeEventListener('mousedown', onFirstMainPinMousedown);
+      mainPin.removeEventListener('keydown', onFirstMainPinEnterPress);
+    }
+  };
 
   var replace = function () {
 
@@ -87,6 +104,10 @@
 
     mainPin.addEventListener('mousedown', onMouseDown);
   };
+
+
+  mainPin.addEventListener('mousedown', onFirstMainPinMousedown);
+  mainPin.addEventListener('keydown', onFirstMainPinEnterPress);
 
   replace();
 })();
