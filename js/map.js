@@ -10,6 +10,10 @@
 
   var activateMap = function () {
     offersMap.classList.remove('map--faded');
+    window.form.enableOfferEditor();
+    window.form.enableMapFilter();
+    window.form.setOfferAddress();
+    window.backend.load(OFFERS_DOWNLOAD_URL, onRequestSuccess, onRequestError);
 
     mainPin.removeEventListener('mousedown', onPinFirstClick);
     mainPin.removeEventListener('keydown', onPinFirstEnterPress);
@@ -40,22 +44,13 @@
 
   var onPinFirstClick = function (evt) {
     if (evt.button === 0) {
-      window.backend.load(OFFERS_DOWNLOAD_URL, onRequestSuccess, onRequestError);
-
       activateMap();
-      window.form.enableOfferEditor();
-      window.form.enableMapFilter();
     }
   };
 
   var onPinFirstEnterPress = function (evt) {
     if (evt.code === window.util.ENTER_KEYCODE) {
-      window.backend.load(OFFERS_DOWNLOAD_URL, onRequestSuccess, onRequestError);
-
       activateMap();
-      window.form.enableOfferEditor();
-      window.form.enableMapFilter();
-      window.form.setOfferAddress();
     }
   };
 
