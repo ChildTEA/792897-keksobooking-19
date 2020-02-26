@@ -3,6 +3,8 @@
 (function () {
   var ENTER_KEYCODE = 'Enter';
   var SPACE_KEYCODE = 'Space';
+  var RED_COLOR = 'rgba(255, 0, 0, 0.9)';
+  var WHITE_COLOR = '#FFFFFF';
 
   var getRandomNumber = function (number) {
     return Math.floor(Math.random() * (number + 1));
@@ -42,6 +44,8 @@
   window.util = {
     ENTER_KEYCODE: ENTER_KEYCODE,
     SPACE_KEYCODE: SPACE_KEYCODE,
+    RED_COLOR: RED_COLOR,
+    WHITE_COLOR: WHITE_COLOR,
     getRandomArrayItem: getRandomArrayItem,
     getRandomInteger: getRandomInteger,
     getRandomNumber: getRandomNumber,
