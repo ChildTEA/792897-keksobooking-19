@@ -9,30 +9,29 @@
   var housingTypeSelect = offersFilter.querySelector('#housing-type');
   var offersData = [];
 
-  var filterStats = {
-    onTypeChange: window.debounce(function (option) {
-      window.pins.clear();
-      window.pins.render(mapPins, filterOffers(option));
-    })
-  };
+  var refreshOffers = window.debounce(function () {
+    window.pins.clear();
+    window.pins.render(mapPins, filterOffers());
+  });
 
-  var filterOffers = function (offerType) {
+  var filterOffers = function () {
     var filteredOffers = [];
-    if (offerType === 'any') {
-      filteredOffers = offersData.concat();
-    } else {
-      filteredOffers = offersData.filter(function (item) {
+    var offerType = housingTypeSelect.value;
+
+    filteredOffers = offersData.filter(function (item) {
+      if (offerType === 'any') {
+        return true;
+      } else {
         return item.offer.type === offerType;
-      });
-    }
+      }
+    });
 
     return filteredOffers.slice(0, MAX_PINS_ON_MAP);
   };
 
-  var onHousingTypeChange = function () {
-    filterStats.onTypeChange(housingTypeSelect.value);
+  var onFilterSettingsChange = function () {
+    refreshOffers();
   };
-
 
   var getOffersData = function () {
     window.backend.load(OFFERS_DOWNLOAD_URL, onRequestSuccess, onRequestError);
@@ -41,7 +40,7 @@
   var onRequestSuccess = function (pins) {
     offersData = pins;
     window.form.enableMapFilter();
-    filterStats.onTypeChange(housingTypeSelect.value);
+    refreshOffers();
   };
 
   var onRequestError = function (errorMessage) {
@@ -60,7 +59,7 @@
     offersMap.prepend(node);
   };
 
-  housingTypeSelect.addEventListener('change', onHousingTypeChange);
+  offersFilter.addEventListener('change', onFilterSettingsChange);
 
 
   window.filter = {
