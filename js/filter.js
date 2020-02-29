@@ -21,9 +21,8 @@
     filteredOffers = offersData.filter(function (item) {
       if (offerType === 'any') {
         return true;
-      } else {
-        return item.offer.type === offerType;
       }
+      return item.offer.type === offerType;
     });
 
     return filteredOffers.slice(0, MAX_PINS_ON_MAP);
