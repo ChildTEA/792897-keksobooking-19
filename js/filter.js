@@ -11,6 +11,7 @@
 
   var refreshOffers = window.debounce(function () {
     window.pins.clear();
+    window.card.removeCurrent();
     window.pins.render(mapPins, filterOffers());
   });
 

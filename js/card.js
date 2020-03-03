@@ -94,6 +94,7 @@
 
 
   window.card = {
-    render: renderCard
+    render: renderCard,
+    removeCurrent: removeCurrentCard
   };
 })();
