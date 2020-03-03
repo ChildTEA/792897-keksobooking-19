@@ -43,6 +43,12 @@
   };
 
   var onRequestError = function (errorMessage) {
+    // Код ниже - для временной отрисовки меток, пока сервера Академии глючат
+    var PINS_QUANTITY = 5;
+    var MAP_LIMIT_TOP = 130;
+    var MAP_LIMIT_BOTTOM = 630;
+    var MAP_WIDTH = 1200;
+    // ***********************************************************************
     var node = document.createElement('div');
 
     node.style = 'z-index: 100; margin: 0 auto; padding: 10px; text-align: center;';
@@ -56,6 +62,11 @@
     node.textContent = errorMessage;
 
     offersMap.prepend(node);
+    // Код ниже - для временной отрисовки меток, пока сервера Академии глючат
+    offersData = window.data.generateRandomOffers(PINS_QUANTITY, MAP_WIDTH, MAP_LIMIT_TOP, MAP_LIMIT_BOTTOM);
+    window.form.enableMapFilter();
+    refreshOffers();
+    // ***********************************************************************
   };
 
   offersFilter.addEventListener('change', onFilterSettingsChange);

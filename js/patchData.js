@@ -1,6 +1,12 @@
 'use strict';
 
 (function () {
+  /*
+  Перед сдачей удалить:
+  index.html - Подключение скриптов
+  patchData.js - Полностью
+  filter.js - Код между комментариями
+  */
   var generateRandomOffers = function (quantity, mapWidth, mapMinY, mapMaxY) {
     var RENT_TYPES = ['palace', 'flat', 'house', 'bungalo'];
     var CHECKIN_TIMES = ['12:00', '13:00', '14:00'];
