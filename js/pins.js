@@ -12,6 +12,9 @@
     pinElement.style.top = (pinData.location.y - PIN_HEIGHT) + 'px';
     pinElement.querySelector('img').src = pinData.author.avatar;
     pinElement.querySelector('img').alt = pinData.offer.title;
+    pinElement.addEventListener('click', function () {
+      window.card.render(pinData);
+    });
 
     return pinElement;
   };
