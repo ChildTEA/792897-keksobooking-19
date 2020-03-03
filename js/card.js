@@ -1,12 +1,39 @@
 'use strict';
 
 (function () {
-  var offersMap = document.querySelector('.map');
   var FEATURES_ITEM_CLASS_TEMPLATE = 'popup__feature popup__feature--';
+
+  var offersMap = document.querySelector('.map');
   var filterContainer = offersMap.querySelector('.map__filters-container');
 
   var createCard = function (offerData) {
     var cardPopup = document.querySelector('#card').content.querySelector('.map__card').cloneNode(true);
+
+    var endingNormalize = function (number, forms) {
+      number = Number(number);
+      if (number % 100 === 11) {
+        return forms[0];
+      }
+      var remainder = number % 10;
+      switch (true) {
+        case remainder === 0 || remainder > 4:
+          return forms[0];
+        case remainder === 1:
+          return forms[1];
+        default:
+          return forms[2];
+      }
+    };
+
+    var roomsEndingNormalize = function (number) {
+      var forms = ['комнат', 'комната', 'комнаты'];
+      return endingNormalize(number, forms);
+    };
+
+    var guestsEndingNormalize = function (number) {
+      var forms = ['гостей', 'гостя', 'гостей'];
+      return endingNormalize(number, forms);
+    };
 
     var translateOfferType = function () {
       switch (offerData.offer.type) {
@@ -23,7 +50,7 @@
       }
     };
 
-    var removeDisabledFeatures = function () {
+    var getOfferFeatures = function () {
       var cardFeaturesList = cardPopup.querySelector('.popup__features');
       cardFeaturesList.innerHTML = '';
       var fragment = document.createDocumentFragment();
@@ -68,7 +95,7 @@
     cardPopup.querySelector('.popup__text--address').textContent = offerData.offer.address;
     cardPopup.querySelector('.popup__text--price').textContent = offerData.offer.price + '₽/ночь';
     cardPopup.querySelector('.popup__type').textContent = translateOfferType();
-    cardPopup.querySelector('.popup__text--capacity').textContent = offerData.offer.rooms + ' комнаты для ' + offerData.offer.guests + ' гостей';
+    cardPopup.querySelector('.popup__text--capacity').textContent = offerData.offer.rooms + ' ' + roomsEndingNormalize(offerData.offer.rooms) + ' для ' + offerData.offer.guests + ' ' + guestsEndingNormalize(offerData.offer.guests);
     cardPopup.querySelector('.popup__text--time').textContent = 'Заезд после ' + offerData.offer.checkin + ', выезд до ' + offerData.offer.checkout;
 
     if (offerData.offer.description) {
@@ -77,7 +104,7 @@
       cardPopup.querySelector('.popup__description').remove();
     }
 
-    removeDisabledFeatures();
+    getOfferFeatures();
     getOfferPhotos();
 
     return cardPopup;
