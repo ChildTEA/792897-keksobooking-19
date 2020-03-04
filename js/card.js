@@ -124,6 +124,15 @@
       var popup = offersMap.querySelector('article.map__card.popup');
       popup.remove();
     });
+
+    document.addEventListener('keydown', onEscPress);
+  };
+
+  var onEscPress = function (evt) {
+    if (evt.code === window.util.ESCAPE_KEYCODE && evt.target.type !== 'text') {
+      removeCurrentCard();
+      document.removeEventListener('keydown', onEscPress);
+    }
   };
 
   var removeCurrentCard = function () {
