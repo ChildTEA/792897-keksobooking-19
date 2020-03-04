@@ -1,7 +1,10 @@
 'use strict';
 
 (function () {
-  var TIMEOUT_IN_MS = 10000;
+  // var TIMEOUT_IN_MS = 10000;
+  // Код ниже - для временной отрисовки меток, пока сервера Академии глючат
+  var TIMEOUT_IN_MS = 5000;
+  // ***********************************************************************
 
   var addRequestHandlers = function (xhr, onLoad, onError) {
     xhr.addEventListener('load', function () {

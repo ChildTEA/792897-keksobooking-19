@@ -2,6 +2,7 @@
 
 (function () {
   var ENTER_KEYCODE = 'Enter';
+  var ESCAPE_KEYCODE = 'Escape';
   var SPACE_KEYCODE = 'Space';
   var RED_COLOR = 'rgba(255, 0, 0, 0.9)';
   var WHITE_COLOR = '#FFFFFF';
@@ -43,6 +44,7 @@
 
   window.util = {
     ENTER_KEYCODE: ENTER_KEYCODE,
+    ESCAPE_KEYCODE: ESCAPE_KEYCODE,
     SPACE_KEYCODE: SPACE_KEYCODE,
     RED_COLOR: RED_COLOR,
     WHITE_COLOR: WHITE_COLOR,

@@ -11,6 +11,7 @@
 
   var refreshOffers = window.debounce(function () {
     window.pins.clear();
+    window.card.removeCurrent();
     window.pins.render(mapPins, filterOffers());
   });
 
@@ -56,6 +57,11 @@
     node.textContent = errorMessage;
 
     offersMap.prepend(node);
+    // Код ниже - для временной отрисовки меток, пока сервера Академии глючат
+    offersData = window.backupData.savedOffers;
+    window.form.enableMapFilter();
+    refreshOffers();
+    // ***********************************************************************
   };
 
   offersFilter.addEventListener('change', onFilterSettingsChange);
