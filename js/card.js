@@ -117,20 +117,28 @@
     addCloserEventListener();
   };
 
-  var addCloserEventListener = function () {
-    var closer = offersMap.querySelector('article.map__card.popup .popup__close');
-
-    closer.addEventListener('click', function () {
-      var popup = offersMap.querySelector('article.map__card.popup');
-      popup.remove();
-    });
-  };
-
   var removeCurrentCard = function () {
     var currentCard = offersMap.querySelector('article.map__card.popup');
     if (currentCard) {
       currentCard.remove();
+      document.removeEventListener('keydown', onEscPress);
     }
+  };
+
+  var onEscPress = function (evt) {
+    if (evt.code === window.util.ESCAPE_KEYCODE && evt.target.type !== 'text') {
+      removeCurrentCard();
+    }
+  };
+
+  var addCloserEventListener = function () {
+    var closer = offersMap.querySelector('article.map__card.popup .popup__close');
+
+    closer.addEventListener('click', function () {
+      removeCurrentCard();
+    });
+
+    document.addEventListener('keydown', onEscPress);
   };
 
 
