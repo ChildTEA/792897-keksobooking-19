@@ -106,20 +106,6 @@
     addressInput.value = Math.round(x) + ', ' + Math.round(y);
   };
 
-  var onPinMousedown = function () {
-    var onMouseMove = function () {
-      setOfferAddress();
-    };
-
-    var onMouseUp = function () {
-      document.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('mouseup', onMouseUp);
-    };
-
-    document.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('mouseup', onMouseUp);
-  };
-
   var validateInputLength = function (input, minLength, maxLength) {
     if (input.value.length < minLength) {
       input.setCustomValidity('Минимальное количество символов: ' + minLength);
@@ -284,8 +270,6 @@
   disableFormInputs(filterForm);
   initialOfferValidation();
   setInitialOfferAddress();
-
-  mainPin.addEventListener('mousedown', onPinMousedown);
 
 
   window.form = {
