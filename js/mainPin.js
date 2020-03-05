@@ -53,6 +53,7 @@
 
         if (shift.x !== 0 || shift.y !== 0) {
           isDragged = true;
+          window.form.setOfferAddress();
         }
 
         var pinEdge = {
