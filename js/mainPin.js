@@ -10,6 +10,11 @@
   var MAIN_PIN_DRAG_LIMIT_TOP = 130;
   var MAIN_PIN_DRAG_LIMIT_BOTTOM = 630;
 
+  var MAIN_PIN_INITIAL_COORDS = {
+    top: '375px',
+    left: '570px'
+  };
+
   var onFirstMainPinMousedown = function (evt) {
     if (evt.button === 0) {
       mainPin.style.zIndex = MAIN_PIN_ACTIVE_Z_INDEX;
@@ -106,9 +111,20 @@
     mainPin.addEventListener('mousedown', onMouseDown);
   };
 
+  var resetPlacement = function () {
+    mainPin.style.left = MAIN_PIN_INITIAL_COORDS.left;
+    mainPin.style.top = MAIN_PIN_INITIAL_COORDS.top;
+    window.form.setInitialOfferAddress();
+  };
+
 
   mainPin.addEventListener('mousedown', onFirstMainPinMousedown);
   mainPin.addEventListener('keydown', onFirstMainPinEnterPress);
 
   replace();
+
+
+  window.mainPin = {
+    resetPlace: resetPlacement
+  };
 })();
