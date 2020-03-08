@@ -15,7 +15,7 @@
 
   var filterForm = document.querySelector('form.map__filters');
   var filterByType = filterForm.querySelector('#housing-type');
-  var filterByprice = filterForm.querySelector('#housing-price');
+  var filterByPrice = filterForm.querySelector('#housing-price');
   var filterByRooms = filterForm.querySelector('#housing-rooms');
   var filterByGuests = filterForm.querySelector('#housing-guests');
   var filterFeatures = filterForm.querySelectorAll('input[name="features"]');
@@ -379,7 +379,7 @@
 
   var resetFilterForm = function () {
     filterByType.selectedIndex = 0;
-    filterByprice.selectedIndex = 0;
+    filterByPrice.selectedIndex = 0;
     filterByRooms.selectedIndex = 0;
     filterByGuests.selectedIndex = 0;
     filterFeatures.forEach(function (item) {
