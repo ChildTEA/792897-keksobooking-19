@@ -252,15 +252,14 @@
 
   var validateFileInput = function (input, elementToStyle, extensions) {
     var file = input.files[0];
-    var fileName = file.name.toLowerCase();
-
     if (file) {
+      var fileName = file.name.toLowerCase();
       var matches = extensions.some(function (extension) {
         return fileName.endsWith(extension);
       });
     }
 
-    if (matches) {
+    if (matches || !file) {
       input.setCustomValidity('');
       removeIncorrectInputStyle(elementToStyle);
     } else {
@@ -398,7 +397,9 @@
     roomCapacitySelect.selectedIndex = 0;
     descriptionTextarea.value = '';
     avatarInput.value = '';
+    validateFileInput(avatarInput, avatarLabel, IMG_EXTENSION);
     offerImagesInput.value = '';
+    validateFileInput(offerImagesInput, offerImagesLabel, IMG_EXTENSION);
 
     offerFeatures.forEach(function (item) {
       item.checked = false;
