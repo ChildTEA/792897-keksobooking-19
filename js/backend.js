@@ -49,8 +49,20 @@
     xhr.send();
   };
 
+  var save = function (url, data, onLoad, onError) {
+    var xhr = new XMLHttpRequest();
+
+    xhr.responseType = 'json';
+
+    addRequestHandlers(xhr, onLoad, onError);
+
+    xhr.open('POST', url);
+    xhr.send(data);
+  };
+
 
   window.backend = {
-    load: load
+    load: load,
+    save: save
   };
 })();

@@ -14,6 +14,13 @@
     mainPin.removeEventListener('keydown', onPinFirstEnterPress);
   };
 
+  var deactivateMap = function () {
+    offersMap.classList.add('map--faded');
+
+    mainPin.addEventListener('mousedown', onPinFirstClick);
+    mainPin.addEventListener('keydown', onPinFirstEnterPress);
+  };
+
   var onPinFirstClick = function (evt) {
     if (evt.button === 0) {
       activateMap();
@@ -32,4 +39,9 @@
   };
 
   init();
+
+
+  window.map = {
+    deactivate: deactivateMap
+  };
 })();
