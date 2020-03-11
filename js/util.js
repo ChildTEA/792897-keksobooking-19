@@ -4,7 +4,7 @@
   var ENTER_KEYCODE = 'Enter';
   var ESCAPE_KEYCODE = 'Escape';
   var SPACE_KEYCODE = 'Space';
-  var RED_COLOR = 'rgba(255, 0, 0, 0.9)';
+  var RED_COLOR = 'rgba(255, 0, 0, 0.8)';
   var WHITE_COLOR = '#FFFFFF';
 
   var getRandomNumber = function (number) {
