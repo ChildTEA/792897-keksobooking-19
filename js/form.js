@@ -120,7 +120,7 @@
   };
 
   var addIncorrectInputStyle = function (input) {
-    input.style.outline = '2px solid rgba(255, 0, 0, 0.8)';
+    input.style.outline = '2px solid ' + window.util.RED_COLOR;
     input.style.outlineOffset = '-2px';
   };
 
