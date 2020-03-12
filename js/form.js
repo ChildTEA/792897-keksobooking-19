@@ -416,6 +416,7 @@
     offerForm.classList.add('ad-form--disabled');
     disableFormInputs(offerForm);
     disableFormInputs(filterForm);
+    window.card.removeCurrent();
     window.pins.clear();
     window.mainPin.resetPlace();
   };
