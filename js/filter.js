@@ -134,6 +134,7 @@
 
 
   window.filter = {
-    getOffersData: getOffersData
+    getOffersData: getOffersData,
+    refresh: refreshOffers
   };
 })();

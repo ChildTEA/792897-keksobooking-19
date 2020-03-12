@@ -114,7 +114,6 @@
   var resetPlacement = function () {
     mainPin.style.left = MAIN_PIN_INITIAL_COORDS.left;
     mainPin.style.top = MAIN_PIN_INITIAL_COORDS.top;
-    window.form.setInitialOfferAddress();
   };
 
 

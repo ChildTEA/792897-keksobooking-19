@@ -405,6 +405,7 @@
       item.checked = false;
     });
 
+    window.mainPin.resetPlace();
     window.preview.clear();
   };
 
@@ -419,6 +420,7 @@
     window.card.removeCurrent();
     window.pins.clear();
     window.mainPin.resetPlace();
+    setInitialOfferAddress();
   };
 
   var onError = function () {
@@ -428,6 +430,10 @@
   offerFormReset.addEventListener('click', function (evt) {
     evt.preventDefault();
     resetOfferForm();
+    setOfferAddress();
+    resetFilterForm();
+
+    window.filter.refresh();
   });
 
 
