@@ -120,7 +120,7 @@
   };
 
   var addIncorrectInputStyle = function (input) {
-    input.style.outline = '2px solid rgba(255, 0, 0, 0.8)';
+    input.style.outline = '2px solid ' + window.util.RED_COLOR;
     input.style.outlineOffset = '-2px';
   };
 
@@ -404,6 +404,8 @@
     offerFeatures.forEach(function (item) {
       item.checked = false;
     });
+
+    window.preview.clear();
   };
 
   var onLoad = function () {
@@ -414,6 +416,7 @@
     offerForm.classList.add('ad-form--disabled');
     disableFormInputs(offerForm);
     disableFormInputs(filterForm);
+    window.card.removeCurrent();
     window.pins.clear();
     window.mainPin.resetPlace();
   };
