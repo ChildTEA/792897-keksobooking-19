@@ -404,6 +404,8 @@
     offerFeatures.forEach(function (item) {
       item.checked = false;
     });
+
+    window.preview.clear();
   };
 
   var onLoad = function () {
