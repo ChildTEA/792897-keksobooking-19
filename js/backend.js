@@ -3,17 +3,23 @@
 (function () {
   var TIMEOUT_IN_MS = 10000;
 
+  var httpStatusCodesMap = {
+    success: 200,
+    badRequest: 400,
+    notFound: 404
+  };
+
   var addRequestHandlers = function (xhr, onLoad, onError) {
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === httpStatusCodesMap.success) {
         onLoad(xhr.response);
       } else {
         switch (xhr.status) {
-          case 400:
+          case httpStatusCodesMap.badRequest:
             onError('Статус ответа: ' + xhr.status + '. Неправильный запрос.');
             break;
 
-          case 404:
+          case httpStatusCodesMap.notFound:
             onError('Статус ответа: ' + xhr.status + '. Запрашиваемый ресурс не найден');
             break;
 
