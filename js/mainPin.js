@@ -2,8 +2,6 @@
 
 (function () {
 
-  var mainPin = document.querySelector('.map__pin--main');
-  var offersMap = document.querySelector('.map');
   var MAIN_PIN_WIDTH = 65;
   var MAIN_PIN_HEIGHT = 84;
   var MAIN_PIN_ACTIVE_Z_INDEX = '2';
@@ -14,6 +12,9 @@
     top: '375px',
     left: '570px'
   };
+
+  var mainPin = document.querySelector('.map__pin--main');
+  var offersMap = document.querySelector('.map');
 
   var onFirstMainPinMousedown = function (evt) {
     if (evt.button === 0) {
